@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página para saber qual seu signo conforme sua data de nascimento, desenvolvido para trabalho avaliativo na discilplina de programação web no curso
+    de Análise e Desenvolvimento de Sistemas pela Unopar.">
+    <meta name="keywords" content="Horoscópo, signos, data">
+    <meta name="author" content="Alex Nascimento do Carmo">
+<!----------------------------links-------------------------------->
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/3776/3776970.png" type="image/x-icon">
+    <title>Descubra seu signo</title>
+  </head>
+
+  <body>
+    <h1>Descubridor de Signo</h1>
+    <main>
+        <form>
+        <label id="lblData" for="txtData"><h2>Data de nascimento: </h2></label>
+        <input type="date" id="txtData"/>
+        <br/>
+        <button id="btnEnviar">Consultar</button>
+        <button id="btnCancelar">Cancelar</button>
+        </form>
+
+        <div id="divSigno"></div>
+    </main>
+    <script>
+        const btnEnviar = document.getElementById("btnEnviar");
+
+        const btnCancelar = document.getElementById("btnCancelar");
+
+        const txtData = document.getElementById("txtData");
+
+        const divSigno = document.getElementById("divSigno");
+
+        btnEnviar.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (txtData.value.length <= 0) {
+            alert("Data invalida!!!... Informe uma data valida!");
+
+            return;
+        }
+
+        carregarDocumentoXml();
+        });
+
+        btnCancelar.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        txtData.value = "";
+
+        divSigno.innerHTML = "";
+        });
+
+        function carregarDocumentoXml() {
+        const xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+            carregarDadosSigno(this);
+            }
+        };
+
+        xmlhttp.open("GET", "signos.xml", true);
+
+        xmlhttp.send();
+        }
+
+        function carregarDadosSigno(xml) {
+        const xmlDoc = xml.responseXML;
+
+        const x = xmlDoc.getElementsByTagName("signo");
+
+        let conteudo = "";
+
+        const dataValor = txtData.value.slice(5);
+
+        const data = new Date(dataValor);
+
+        for (i = 0; i < x.length; i++) {
+            const dataInicioValor =
+            x[i].getElementsByTagName("dataInicio")[0].childNodes[0].nodeValue;
+
+            const dataFimValor =
+            x[i].getElementsByTagName("dataFim")[0].childNodes[0].nodeValue;
+
+            const [diaInicio, mesInicio] = dataInicioValor.split("/");
+
+            const [diaFim, mesFim] = dataFimValor.split("/");
+
+            const dataInicio = new Date(mesInicio + "-" + diaInicio);
+
+            const dataFim = new Date(mesFim + "-" + diaFim);
+
+            if (
+            data.getTime() >= dataInicio.getTime() &&
+            data.getTime() <= dataFim.getTime()
+            ) {
+            conteudo = `<h2>Você é de ${
+                x[i].getElementsByTagName("signoNome")[0].childNodes[0].nodeValue
+            }</h2>`;
+
+            conteudo += "<div>";
+
+            conteudo += `<p>${
+                x[i].getElementsByTagName("descricao")[0].childNodes[0].nodeValue
+            }</p>`;
+
+            conteudo += ` <img src='${
+                x[i].getElementsByTagName("imagem")[0].childNodes[0].nodeValue
+              }' alt='${
+                x[i].getElementsByTagName("signoNome")[0].childNodes[0].nodeValue
+              }' />`;
+
+            conteudo += "</div>";
+
+            break;
+            }
+        }
+
+        document.getElementById("divSigno").innerHTML = conteudo;
+        };
+    </script>
+  </body>
+</html>

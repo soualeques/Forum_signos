@@ -1,0 +1,49 @@
+*
+{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body
+{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+h1
+{
+    text-align: center;
+    color: red;
+}
+main
+{
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input#txtData
+{
+    border: 2px solid red;
+    font-size: 15pt;
+}
+button
+{
+    border-radius: 15%;
+    font-size: 12pt;
+    padding: 5px;
+    margin: 4px;
+}
+div#divSigno
+{
+    text-align: justify;
+    text-indent: 6px;
+    font-size: 17pt;
+    color: gold;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+img
+{
+    width: 500px;
+}
