@@ -1,12 +1,21 @@
-# forum_signos
+#Forum_signos
 
-## projeto para forúm da disciplina programação web do curso de analise e desenvolvimento de sistemas pela Unopar.
+## project for the forum of the web programming discipline of the course of analysis and development of systems by Unopar.
 
-utilizado nesse projeto HTML 5, CSS 3, XML e Javascript.
+###
 
-#### VIDEO:
-<div>
-<video src="https://user-images.githubusercontent.com/82433728/196019369-55db0d48-acc7-4f39-84a3-910e29263d68.mp4
-" autoplay muted widght=400 height=400></video>
-</div>
+### TECHNOLOGIES USED:
+<table>
+    <tr>
+        <td>HTML</td>
+        <td>CSS</td>
+        <td>Javascript</td>
+        <td>XML</td>
+    </tr>
+    <tr>
+    <td>5</td>
+    <td>3</td>
+    </tr>
+</table>
+
 
